@@ -1,0 +1,108 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    &lt;!&ndash; Заголовок &ndash;&gt;
+    <h1>ADD Movie</h1>
+    &lt;!&ndash; Форма &ndash;&gt;
+    <form action="/add-movie" method="post">
+        <input type="text" name="name" placeholder="name" required>
+        <textarea placeholder="DiscRiPTion" name="discription" required></textarea>
+        &lt;!&ndash; Поле для постера &ndash;&gt;
+        <label class="poster-upload">
+            <input type="file" accept="image/*" onchange="previewPoster(event)">
+            <div class="poster-preview">
+                &lt;!&ndash;<span>📎</span>&ndash;&gt;
+                <p>Poster</p>
+            </div>
+        </label>
+        <button type="submit">add</button>
+    </form>
+    &lt;!&ndash; Ссылка назад &ndash;&gt;
+    <a href="#" class="back">Back to home</a>
+</div>
+
+<script>
+    // Предварительный просмотр изображения
+    function previewPoster(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const posterPreview = document.querySelector('.poster-preview');
+                posterPreview.innerHTML = `<img src="${e.target.result}" alt="Poster Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!-- Заголовок -->
+    <h1>Add a New Movie</h1>
+    <p>Fill in the details below to add a new movie to the database.</p>
+
+    <!-- Отображение ошибки -->
+    <div th:if="${error}" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- Форма -->
+    <form action="/add-movie" method="post" enctype="multipart/form-data">
+        <!-- Поле для имени фильма -->
+        <input type="text" name="name" placeholder="Movie Name" required>
+
+        <!-- Поле для описания -->
+        <textarea name="description" placeholder="Movie Description" required></textarea>
+
+        <!-- Поле для загрузки постера -->
+        <label class="poster-upload">
+            <input type="file" name="file" accept="image/*" onchange="previewPoster(event)" required>
+            <div class="poster-preview">
+                <p>Upload Poster</p>
+            </div>
+        </label>
+
+        <!-- Кнопка отправки -->
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <!-- Ссылка назад -->
+    <a href="/home" class="back">Back to home</a>
+</div>
+
+<script>
+    // Предварительный просмотр изображения
+    function previewPoster(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const posterPreview = document.querySelector('.poster-preview');
+                posterPreview.innerHTML = `<img src="${e.target.result}" alt="Poster Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</body>
+</html>
+

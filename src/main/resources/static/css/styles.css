@@ -1,0 +1,179 @@
+
+@font-face {
+    font-family: 'Star Jedi_Cyrilic'; /* Название шрифта */
+    src: url('/font/starjedi_cyrillic.otf'); /* Подключение шрифта */
+    font-weight: normal; /* Вес шрифта */
+    font-style: normal;  /* Стиль шрифта */
+}
+
+
+/* Общий стиль */
+body {
+    margin: 0;
+    font-family: 'Star Jedi_Cyrilic', sans-serif;
+    background-color: #060228;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    max-width: 912px;
+    height: 928px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    color: white;
+}
+
+form {
+    width: 100%;
+    max-width: 800px;
+    /*background-color: #151545;*/
+    padding: 20px;
+}
+
+input[type="text"],
+textarea {
+    width: 97%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #4638B8;
+    border-radius: 13px;
+    background-color: #1C1745;
+    color: white;
+    font-size: 1rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #2C2577;
+    font-family: 'Star Jedi_Cyrilic', sans-serif;
+}
+
+.poster-upload {
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 20px;
+    padding: 20px 0;
+    border: 2px dashed #4638B8;
+    border-radius: 13px;
+    background-color: #1C1745;
+    color: #2C2577;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+.poster-upload input {
+    display: none;
+}
+
+.poster-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Выравнивание сверху */
+    gap: 20px;
+    max-height: 300px; /* Ограничиваем высоту контейнера */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+}
+
+.poster-preview img {
+    max-width: 100%; /* Масштабирование по ширине */
+    height: auto; /* Высота автоматически подстраивается */
+    object-fit: unset; /* Убираем подгонку */
+    border-radius: 13px;
+}
+
+/* Стилизация полос прокрутки */
+.poster-preview::-webkit-scrollbar {
+    width: 10px;
+}
+
+.poster-preview::-webkit-scrollbar-thumb {
+    background-color: #4638B8; /* Цвет ползунка */
+    border-radius: 10px;
+}
+
+.poster-preview::-webkit-scrollbar-track {
+    background-color: #1C1745; /* Цвет фона полосы прокрутки */
+    border-radius: 10px;
+}
+
+
+button {
+    width: 100%;
+    padding: 12px 0;
+    font-family: 'Star Jedi_Cyrilic', sans-serif;
+    font-size: 1rem;
+    color: #2C2577;
+    background-color: #6356D8;
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5d5dff;
+}
+
+.back {
+    margin-top: 0px;
+    color: #8a8ab2;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+/* Фоновые иконки */
+
+.background-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*width: 100%;*/
+    width: auto;
+    /*height: 100%;*/
+    height: auto;
+    z-index: -1;
+}
+
+.icon {
+    position: absolute;
+    opacity: 0.2;
+    width: 80px;
+    height: auto;
+}
+
+.rebel {
+    top: 10%;
+    left: 5%;
+}
+
+.tie {
+    top: 5%;
+    right: 5%;
+}
+
+.bb8 {
+    bottom: 5%;
+    right: 10%;
+}
+
+
