@@ -1,9 +1,6 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Movie {
@@ -13,6 +10,7 @@ public class Movie {
 
     private Long parentMovieId;
     private String name;
+    @Column(length = 5000)
     private String description;
     private double rating;
     private String posterPath;
