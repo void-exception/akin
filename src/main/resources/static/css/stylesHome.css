@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Star Jedi_Cyrilic'; /* Название шрифта */
+    src: url('/font/starjedi_cyrillic.otf'); /* Подключение шрифта */
+    font-weight: normal; /* Вес шрифта */
+    font-style: normal;  /* Стиль шрифта */
+}
+
+/* Общий стиль для всех страниц */
+body {
+    margin: 0;
+    font-family: 'Star Jedi_Cyrilic', sans-serif;
+    background-color: #060228;
+    color: white;
+    text-align: center;
+}
+
+/* Заголовок */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    color: white;
+}
+
+/* Общие стили для форм */
+form {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* Поля ввода и текстовые области */
+input[type="text"],
+input[type="search"],
+textarea {
+    width: 80%;
+    padding: 15px;
+    margin: 5px 0;
+    border: 1px solid #4638B8;
+    border-radius: 13px;
+    background-color: #1C1745;
+    color: white;
+    font-size: 1rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #2C2577;
+    font-family: 'Star Jedi_Cyrilic', sans-serif;
+}
+
+/* Кнопки*/
+button {
+    width: 13%;
+    padding: 12px;
+    margin: 5px 0;
+    font-family: 'Star Jedi_Cyrilic', sans-serif;
+    font-size: 1rem;
+    color: #2C2577;
+    background-color: #6356D8;
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: #5d5dff;
+}
+
+.movie-container {
+    display: grid; /* Сетка */
+    grid-template-columns: 1fr 1fr 1fr; /* Три равные колонки */
+    gap: 111px 150px; /* Расстояние между карточками */
+    margin-top: 5px;
+    justify-items: center; /* Центрируем элементы внутри колонок */
+}
+
+.movie-card {
+    background-color: #1e1e3f;
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%; /* Автоматическая ширина */
+    max-width: 300px; /* Ограничиваем максимальную ширину */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    margin-top: 7px;
+    margin-left: 8px;
+    width: 92%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+.movie-card p.title {
+    font-size: 0.9rem;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.movie-card p.rating {
+    font-size: 0.8rem;
+    color: #4638B8;
+    margin-bottom: 10px;
+}
+
+
+

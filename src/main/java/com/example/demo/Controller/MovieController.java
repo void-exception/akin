@@ -1,8 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Model.FileStorageService;
-import com.example.demo.Model.Movie;
-import com.example.demo.Model.MovieRepository;
+import com.example.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +16,36 @@ public class MovieController {
     private FileStorageService fileStorageService;
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private MovieService movieService;
+
+
+    @GetMapping({"/home", "/"})
+    public String home(Model model){
+        Iterable<Movie> movies = movieRepository.findAll();
+        model.addAttribute("movies", movies);
+        model.addAttribute("line", "Popular films");
+        return "index";
+    }
+
 
     @GetMapping("/add-movie")
     public String addMovie()
     {
         return "addMovie";
     }
+
+
+    @GetMapping("/search")
+    public String searchMovies(@RequestParam("query") String query, Model model){
+        Iterable<Movie> movies = movieService.searchMovieElastic(query);
+        model.addAttribute("movies", movies);
+        model.addAttribute("line", query);
+        return "index";
+    }
+
+
+    /*POST----------------------------------------------------------POST*/
 
     @PostMapping("/add-movie")
     public String addPostMovie(@RequestParam String name, @RequestParam String description, @RequestParam("file") MultipartFile file, Model model)
@@ -34,8 +56,11 @@ public class MovieController {
         }
         try {
             String posterPath = fileStorageService.uploadFileToYandexCloud(file);
+
             Movie movie = new Movie(name, description, posterPath);
-            movieRepository.save(movie);
+            movieService.AddMovie(movie);
+
+
 
         } catch (Exception e){
             e.printStackTrace();
