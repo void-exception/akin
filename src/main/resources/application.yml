@@ -1,39 +1,3 @@
-#server:
-#  port: 9090
-#  error:
-#    include-message: always
-#    include-binding-errors: always
-#
-#cloud:
-#  yandex:
-#    s3:
-#      endpoint: https://storage.yandexcloud.net
-#      access-key: YCAJEXHuM8hQxoWUqui86Ju9i
-#      secret-key: YCMVwJTFz6MU5TGO0Dlu51sdFve2dxOXa0j7rUSf
-#      bucket-name: movieposter
-#
-#spring:
-#  datasource:
-#    password: Svatzapomni1
-#    url: jdbc:postgresql://localhost:5432/akin
-#    username: postgres
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#        format_sql: true
-#    show-sql: true
-#  elasticsearch:
-#    uris: https://localhost:9200
-#    username: elastic
-#    password: 5mwkeqMKNTmBMj6hMNF0
-#http:
-#  client:
-#    ssl:
-#      validate-certificates: false
-#
 server:
   port: 9090
   error:
@@ -67,7 +31,6 @@ spring:
     uris: https://localhost:9200
     username: elastic
     password: 5mwkeqMKNTmBMj6hMNF0
-#    restclient:
-#      ssl:
-#        verification-mode: none
-
+  redis:
+    host: localhost
+    port: 6379

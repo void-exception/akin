@@ -8,39 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MovieElasticRepository extends ElasticsearchRepository <MovieElastic, String> {
-//    @Query("""
-//            {
-//                 "bool": {
-//                     "should": [
-//                         {
-//                             "multi_match": {
-//                                 "query": "?0",
-//                                 "fields": ["name^4", "description^3"],
-//                                 "type": "best_fields",
-//                                 "operator": "or"
-//                             }
-//                         },
-//                         {
-//                             "match_phrase": {
-//                                 "name":{
-//                                     "query":"?0",
-//                                     "boost": 3
-//                                 }
-//                             }
-//                         },
-//                         {
-//                             "match_phrase":{
-//                                 "description":{
-//                                     "query":"?0",
-//                                     "boost":2
-//                                 }
-//                             }
-//                         }
-//                     ],
-//                     "minimum_should_match":1
-//                 }
-//             }
-//            """)
 @Query("""
     {
         "bool": {

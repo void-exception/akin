@@ -1,0 +1,408 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Movie Recommendations</title>-->
+<!--    <style>-->
+<!--        @font-face {-->
+<!--            font-family: 'Star Jedi_Cyrilic'; /* Название шрифта */-->
+<!--            src: url('/font/starjedi_cyrillic.otf'); /* Подключение шрифта */-->
+<!--            font-weight: normal; /* Вес шрифта */-->
+<!--            font-style: normal;  /* Стиль шрифта */-->
+<!--        }-->
+<!--        body {-->
+<!--            margin: 0;-->
+<!--            font-family: 'Star Jedi_Cyrilic', sans-serif;-->
+<!--            background-color: #060228;-->
+<!--            color: white;-->
+<!--            padding: 0;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            color: #4A41B0;-->
+<!--        }-->
+
+<!--        .movie-container {-->
+<!--            max-width: 500px;-->
+<!--            background-color: #1E1E3F;-->
+<!--            border-radius: 10px;-->
+<!--            padding: 20px;-->
+<!--            margin: 20px;-->
+<!--            text-align: center;-->
+<!--            position: relative;-->
+<!--            transition: transform 0.3s ease-in-out;-->
+<!--        }-->
+
+<!--        .movie-container img {-->
+<!--            max-width: 100%;-->
+<!--            border-radius: 10px;-->
+<!--        }-->
+
+<!--        .movie-title {-->
+<!--            font-size: 1.5em;-->
+<!--            margin: 10px 0;-->
+<!--        }-->
+
+<!--        .movie-description {-->
+<!--            color: #D6D1FF;-->
+<!--            font-size: 1em;-->
+<!--            line-height: 1.5;-->
+<!--            margin: 10px 0;-->
+<!--        }-->
+
+<!--        .recommendations {-->
+<!--            margin-top: 20px;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .recommendations h2 {-->
+<!--            font-size: 1.2em;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .recommendations-container {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            gap: 20px;-->
+<!--            flex-wrap: wrap;-->
+<!--        }-->
+
+<!--        .recommendation-item {-->
+<!--            background-color: #1E1E3F;-->
+<!--            border-radius: 10px;-->
+<!--            width: 150px;-->
+<!--            text-align: center;-->
+<!--            padding: 10px;-->
+<!--        }-->
+
+<!--        .recommendation-item img {-->
+<!--            max-width: 100%;-->
+<!--            border-radius: 10px;-->
+<!--        }-->
+
+<!--        .recommendation-title {-->
+<!--            font-size: 0.9em;-->
+<!--            margin: 10px 0;-->
+<!--        }-->
+
+<!--        .imdb-score {-->
+<!--            font-size: 0.8em;-->
+<!--            color: #4638B8;-->
+<!--        }-->
+
+<!--        .movie-score-container {-->
+<!--            margin: 20px 0;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .movie-score {-->
+<!--            font-size: 1.2em;-->
+<!--        }-->
+
+<!--        .movie-score span {-->
+<!--            margin: 0 5px;-->
+<!--            cursor: pointer;-->
+<!--            padding: 5px 10px;-->
+<!--            border: false;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+
+<!--        .imdb-rating {-->
+<!--            font-size: 0.9em;-->
+<!--            color: #4638B8;-->
+<!--            position: absolute;-->
+<!--            bottom: 20px;-->
+<!--            right: 20px;-->
+<!--        }-->
+
+<!--         .movie-score .score {-->
+<!--            font-size: 30px;-->
+<!--            transition: transform 0.2s, color 0.2s;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        .movie-score input[type="radio"]:checked + label {-->
+<!--            color: #27ae60;  /* Зеленый цвет, когда цифра выбрана */-->
+<!--        }-->
+
+<!--        .movie-score label:hover {-->
+<!--            transform: scale(1.2);-->
+<!--            color: #f39c12;  /* Оранжевый цвет при наведении */-->
+<!--        }-->
+
+<!--        button {-->
+<!--            width: 100px;-->
+<!--            padding: 12px;-->
+<!--            margin: 5px 0;-->
+<!--            font-family: 'Star Jedi_Cyrilic', sans-serif;-->
+<!--            font-size: 1rem;-->
+<!--            color: #2C2577;-->
+<!--            background-color: #6356D8;-->
+<!--            border: none;-->
+<!--            border-radius: 13px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="movie-container">-->
+<!--    <img th:src="${movie.posterPath}" alt="Movie Poster">-->
+<!--    <div th:text="${movie.name}" class="movie-title"></div>-->
+<!--    <div th:text="${movie.description}" class="movie-description"></div>-->
+<!--    <br>-->
+<!--    <div th:text="${movie.rating}" class="imdb-rating"></div>-->
+<!--</div>-->
+
+<!--<form th:action="@{/submit-score}" method="post">-->
+<!--    &lt;!&ndash; Скрытое поле для ID фильма &ndash;&gt;-->
+<!--    <input type="hidden" name="movieId" th:value="${movie.id}" />-->
+
+<!--    <div class="movie-score">-->
+<!--        <h2>Your score</h2><br>-->
+
+<!--        <input type="radio" name="score" value="1" id="score-1" th:checked="${movie.rating == 1}" />-->
+<!--        <label for="score-1" class="score">1</label>-->
+
+<!--        <input type="radio" name="score" value="2" id="score-2" th:checked="${movie.rating == 2}" />-->
+<!--        <label for="score-2" class="score">2</label>-->
+
+<!--        <input type="radio" name="score" value="3" id="score-3" th:checked="${movie.rating == 3}" />-->
+<!--        <label for="score-3" class="score">3</label>-->
+
+<!--        <input type="radio" name="score" value="4" id="score-4" th:checked="${movie.rating == 4}" />-->
+<!--        <label for="score-4" class="score">4</label>-->
+
+<!--        <input type="radio" name="score" value="5" id="score-5" th:checked="${movie.rating == 5}" />-->
+<!--        <label for="score-5" class="score">5</label>-->
+
+<!--        <br>-->
+<!--        &lt;!&ndash; Кнопка отправки формы &ndash;&gt;-->
+<!--        <button type="submit">Submit</button>-->
+
+<!--    </div>-->
+<!--</form>-->
+
+
+
+
+<!--<div class="recommendations">-->
+<!--    <h2>With this movie, we recommend</h2>-->
+<!--    <div class="recommendations-container">-->
+<!--        <div th:each="el : ${allMovies}" class="recommendation-item">-->
+<!--            <img th:src="${el.posterPath}" alt="Poster">-->
+<!--            <div th:text="${el.name}" class="recommendation-title"></div>-->
+<!--            <div th:text="${el.rating}" class="imdb-score"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <style>
+        /* Ваши стили остаются без изменений */
+        @font-face {
+            font-family: 'Star Jedi_Cyrilic'; /* Название шрифта */
+            src: url('/font/starjedi_cyrillic.otf'); /* Подключение шрифта */
+            font-weight: normal; /* Вес шрифта */
+            font-style: normal;  /* Стиль шрифта */
+        }
+        body {
+            margin: 0;
+            font-family: 'Star Jedi_Cyrilic', sans-serif;
+            background-color: #060228;
+            color: white;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #4A41B0;
+        }
+
+        .movie-container {
+            max-width: 500px;
+            background-color: #1E1E3F;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .movie-container img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .movie-title {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .movie-description {
+            color: #D6D1FF;
+            font-size: 1em;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .recommendations h2 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .recommendations-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .recommendation-item {
+            background-color: #1E1E3F;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .recommendation-item img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .recommendation-title {
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+
+        .imdb-score {
+            font-size: 0.8em;
+            color: #4638B8;
+        }
+
+        .movie-score-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .movie-score {
+            font-size: 1.2em;
+            display: flex;
+            flex-direction: column; /* Вертикальное расположение */
+            align-items: center;
+        }
+
+        .movie-score h2 {
+            margin-bottom: 20px;
+        }
+
+        .movie-score .score-container {
+            display: flex; /* Горизонтальное расположение цифр */
+            gap: 20px; /* Расстояние между цифрами */
+            margin-bottom: 20px; /* Отступ снизу */
+        }
+
+        .movie-score label {
+            font-size: 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .movie-score input[type="radio"] {
+            display: none; /* Скрываем стандартные радиокнопки */
+        }
+
+        .movie-score input[type="radio"]:checked + label {
+            color: #27ae60;  /* Зеленый цвет, когда цифра выбрана */
+        }
+
+        .movie-score label:hover {
+            transform: scale(1.2);
+            color: #f39c12;  /* Оранжевый цвет при наведении */
+        }
+
+        button {
+            width: 100px;
+            padding: 12px;
+            margin-top: 20px; /* Отступ сверху для кнопки */
+            font-family: 'Star Jedi_Cyrilic', sans-serif;
+            font-size: 1rem;
+            color: #2C2577;
+            background-color: #6356D8;
+            border: none;
+            border-radius: 13px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="movie-container">
+    <img th:src="${movie.posterPath}" alt="Movie Poster">
+    <div th:text="${movie.name}" class="movie-title"></div>
+    <div th:text="${movie.description}" class="movie-description"></div>
+    <br>
+    <div th:text="${movie.rating}" class="imdb-rating"></div>
+</div>
+
+<form th:action="@{/submit-score}" method="post">
+    <!-- Скрытое поле для ID фильма -->
+    <input type="hidden" name="movieId" th:value="${movie.id}" />
+
+    <div class="movie-score">
+        <h2>Your score</h2>
+
+        <div class="score-container">
+            <input type="radio" name="score" value="1" id="score-1" th:checked="${movie.rating == 1}" />
+            <label for="score-1" class="score">1</label>
+
+            <input type="radio" name="score" value="2" id="score-2" th:checked="${movie.rating == 2}" />
+            <label for="score-2" class="score">2</label>
+
+            <input type="radio" name="score" value="3" id="score-3" th:checked="${movie.rating == 3}" />
+            <label for="score-3" class="score">3</label>
+
+            <input type="radio" name="score" value="4" id="score-4" th:checked="${movie.rating == 4}" />
+            <label for="score-4" class="score">4</label>
+
+            <input type="radio" name="score" value="5" id="score-5" th:checked="${movie.rating == 5}" />
+            <label for="score-5" class="score">5</label>
+        </div>
+
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+<div class="recommendations">
+    <h2>With this movie, we recommend</h2>
+    <div class="recommendations-container">
+        <div th:each="el : ${allMovies}" class="recommendation-item">
+            <img th:src="${el.posterPath}" alt="Poster">
+            <div th:text="${el.name}" class="recommendation-title"></div>
+            <div th:text="${el.rating}" class="imdb-score"></div>
+        </div>
+    </div>
+</div>
+<br>
+</body>
+</html>

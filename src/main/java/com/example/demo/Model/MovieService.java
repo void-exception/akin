@@ -1,7 +1,6 @@
 package com.example.demo.Model;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,10 +10,12 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final MovieElasticRepository movieElasticRepository;
+    private final MovieRecomendationRepository movieRecomendationRepository;
 
-    public MovieService(MovieRepository movieRepository, MovieElasticRepository movieElasticRepository) {
+    public MovieService(MovieRepository movieRepository, MovieElasticRepository movieElasticRepository, MovieRecomendationRepository movieRecomendationRepository) {
         this.movieRepository = movieRepository;
         this.movieElasticRepository = movieElasticRepository;
+        this.movieRecomendationRepository = movieRecomendationRepository;
     }
     public Movie AddMovie(Movie movie){
         Movie savedMovie = movieRepository.save(movie);
@@ -44,5 +45,24 @@ public class MovieService {
         List<Movie> searchMovie = movieRepository.findAllById(ids);
         return searchMovie;
     }
+
+    public List<Long> getTop5RelatedMovies (Long movieId)
+    {
+        Optional<MovieRecomendation> recomendation = movieRecomendationRepository.findById(movieId);
+        if (recomendation.isPresent()) {
+            List<Long> top5Movies = recomendation.get().getRelatedMovies().entrySet()
+                    .stream()
+                    .sorted(Map.Entry.<Long, Integer>comparingByValue().reversed())//Сортировка по убыванию
+                    .limit(5)
+                    .map(Map.Entry::getKey)//Получаем ключи
+                    .toList();
+            if (top5Movies.isEmpty()) {
+                return movieRepository.findTop5ByOrderByRatingDesc().stream().map(Movie::getId).toList();
+            }
+            return top5Movies;
+        }
+        return movieRepository.findTop5ByOrderByRatingDesc().stream().map(Movie::getId).toList();
+    }
+
 
 }

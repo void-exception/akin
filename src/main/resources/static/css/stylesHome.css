@@ -114,5 +114,14 @@ button:hover {
     margin-bottom: 10px;
 }
 
+.movie-link {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit; /* Использует цвет родительского элемента */
+}
+
+.movie-link:hover {
+    color: inherit; /* Оставляет цвет неизменным при наведении */
+    text-decoration: none; /* Убирает подчеркивание при наведении */
+}
 
 
