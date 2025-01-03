@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Data
-@RedisHash("MovieRecommendation")
+@RedisHash("RecMovieApp")
 public class MovieRecomendation implements Serializable{
     @Id
     private Long id;

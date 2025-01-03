@@ -73,7 +73,7 @@ button:hover {
 .movie-container {
     display: grid; /* Сетка */
     grid-template-columns: 1fr 1fr 1fr; /* Три равные колонки */
-    gap: 111px 150px; /* Расстояние между карточками */
+    gap: 130px 150px; /* Расстояние между карточками */
     margin-top: 5px;
     justify-items: center; /* Центрируем элементы внутри колонок */
 }
@@ -85,6 +85,7 @@ button:hover {
     text-align: center;
     width: 100%; /* Автоматическая ширина */
     max-width: 300px; /* Ограничиваем максимальную ширину */
+    height: 580px; /* Фиксированная высота карточки */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease-in-out;
 }
@@ -94,25 +95,34 @@ button:hover {
 }
 
 .movie-card img {
-    margin-top: 7px;
-    margin-left: 8px;
-    width: 92%;
-    height: auto;
+    width: 90%; /* Растягиваем изображение на 90% ширины карточки */
+    height: 450px; /* Фиксированная высота изображения */
+    object-fit: cover; /* Подгоняет изображение, обрезая его, чтобы оно заполнило пространство */
     display: block;
+    margin-left: auto; /* Выравнивание по горизонтали */
+    margin-right: auto; /* Выравнивание по горизонтали */
+    margin-top: 10px; /* Небольшой отступ сверху */
     border-radius: 15px;
 }
+
 
 .movie-card p.title {
     font-size: 0.9rem;
     margin: 10px 0;
     font-weight: bold;
+    text-overflow: ellipsis; /* Добавляет троеточие, если текст не помещается */
 }
 
 .movie-card p.rating {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #4638B8;
     margin-bottom: 10px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: none; /* Убираем ограничение по ширине */
 }
+
 
 .movie-link {
     text-decoration: none; /* Убирает подчеркивание */
@@ -123,5 +133,4 @@ button:hover {
     color: inherit; /* Оставляет цвет неизменным при наведении */
     text-decoration: none; /* Убирает подчеркивание при наведении */
 }
-
 

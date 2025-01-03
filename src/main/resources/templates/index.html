@@ -32,7 +32,7 @@
         <a th:href="@{/details/{id}(id=${el.id})}" class="movie-link">
             <img th:src="${el.posterPath}" alt="Movie Poster">
             <p th:text="${el.name}" class="title"></p>
-            <p th:text="${el.rating}" class="rating"></p>
+            <p th:text="${#strings.replace(#numbers.formatDecimal(el.rating, 1, 1), ',', '.')}" class="rating"></p>
         </a>
     </div>
 </div>

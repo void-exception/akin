@@ -1,6 +1,6 @@
 package com.example.demo.Regestration.Controller;
-import com.example.demo.Regestration.Model.MyAppUser;
-import com.example.demo.Regestration.Model.MyAppUserRepository;
+import com.example.demo.Regestration.Model.AppUser;
+import com.example.demo.Regestration.Model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegistrationController {
     @Autowired
-    private MyAppUserRepository myAppUserRepository;
+    private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -21,8 +21,8 @@ public class RegistrationController {
             value = {"/req/signup"},
             consumes = {"application/json"}
     )
-    public MyAppUser createUser(@RequestBody MyAppUser user) {
-        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
-        return (MyAppUser)this.myAppUserRepository.save(user);
+    public AppUser createUser(@RequestBody AppUser appUser) {
+        appUser.setPassword(this.passwordEncoder.encode(appUser.getPassword()));
+        return (AppUser)this.userRepository.save(appUser);
     }
 }

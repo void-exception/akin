@@ -1,58 +1,60 @@
 package com.example.demo.Model;
 
-import com.example.demo.Regestration.Model.MyAppUser;
-import com.example.demo.Regestration.Model.MyAppUserRepository;
+import com.example.demo.Regestration.Model.AppUser;
+import com.example.demo.Regestration.Model.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class ScoreService {
     private final MovieRecomendationRepository movieRecomendationRepository;
-    private final MyAppUserRepository myAppUserRepository;
+    private final UserRepository userRepository;
     private final MovieRepository movieRepository;
 
-    public ScoreService(MovieRecomendationRepository movieRecomendationRepository, MyAppUserRepository myAppUserRepository, MovieRepository movieRepository) {
+    public ScoreService(MovieRecomendationRepository movieRecomendationRepository, UserRepository userRepository, MovieRepository movieRepository) {
         this.movieRecomendationRepository = movieRecomendationRepository;
-        this.myAppUserRepository = myAppUserRepository;
+        this.userRepository = userRepository;
         this.movieRepository = movieRepository;
     }
 
     public String submitScore(Movie movie,Long idUser, Integer score)
     {
-        if (movie.getRating() == 0) {
-            movie.setRating(score);
-        }
-        else {
-            movie.setRating((movie.getRating() + score) / 2);
-        }
-        MyAppUser user = myAppUserRepository.findById(idUser)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + idUser));
+        movie.setRating((movie.getRating() * movie.getRatingCount() + score) / (movie.getRatingCount() + 1));
+        movie.incrementRatingCount();
 
-        user.getFavoriteMovies().merge(movie.getId(), 1, Integer::sum);
+        if(score==5) {
+            AppUser appUser = userRepository.findById(idUser)
+                    .orElseThrow(() -> new IllegalArgumentException("AppUser not found with id: " + idUser));//Убрать
 
+            Long movieGetId = movie.getId();
+
+            if (appUser.getFavoriteMovies().add(movieGetId)) { // Добавляем фильм, только если его ещё нет
+                userRepository.save(appUser);
+            }
+
+            Optional<MovieRecomendation> existingRecomendation = movieRecomendationRepository.findById(movie.getId());
+            MovieRecomendation movieRecomendation;
+
+            if (existingRecomendation.isPresent()) {
+                movieRecomendation = existingRecomendation.get();
+            } else {
+                movieRecomendation = new MovieRecomendation();
+                movieRecomendation.setId(movieGetId);
+            }
+
+            for (Long movieId : appUser.getFavoriteMovies()) {
+                if (movieId.equals(movieGetId))
+                {
+                    continue;
+                }
+                movieRecomendation.getRelatedMovies().merge(movieId, 1, Integer::sum);
+            }
+            movieRecomendationRepository.save(movieRecomendation);
+        }
         movieRepository.save(movie);
-        myAppUserRepository.save(user);//ПО ИДЕИ С ПСЙЛ ВСЕ ОК
-
-        Optional<MovieRecomendation> existingRecomendation = movieRecomendationRepository.findById(movie.getId());
-        MovieRecomendation movieRecomendation;
-
-        if (existingRecomendation.isPresent()) {
-            movieRecomendation = existingRecomendation.get();
-        }
-        else {
-            movieRecomendation = new MovieRecomendation();
-            movieRecomendation.setId(movie.getId());
-        }
-
-        Set<Long> idMovies = user.getFavoriteMovies().keySet();
-        for (Long movieId :idMovies) {
-            movieRecomendation.getRelatedMovies().merge(movieId, 1, Integer::sum);
-        }
-
-        movieRecomendationRepository.save(movieRecomendation);
-
         return "redirect:/home";
     }
 }

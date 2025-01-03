@@ -17,7 +17,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     password: Svatzapomni1
-    url: jdbc:postgresql://localhost:5432/akin
+    url: jdbc:postgresql://localhost:5432/akin_app
     username: postgres
   jpa:
     hibernate:

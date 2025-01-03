@@ -3,7 +3,7 @@ package com.example.demo.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "movies")
+@Document(indexName = "searchmovie")
 public class MovieElastic {
     @Id
     private String id;

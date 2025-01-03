@@ -1,8 +1,8 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.*;
-import com.example.demo.Regestration.Model.MyAppUser;
-import com.example.demo.Regestration.Model.MyAppUserRepository;
+import com.example.demo.Regestration.Model.AppUser;
+import com.example.demo.Regestration.Model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +27,7 @@ public class MovieController {
     @Autowired
     private ScoreService scoreService;
     @Autowired
-    private MyAppUserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
     private MovieRecomendationRepository movieRecomendationRepository;
 
@@ -109,10 +108,10 @@ public class MovieController {
     }
 
     @PostMapping("/submit-score")
-    public String submitScore(@RequestParam("score") Integer score, @RequestParam("movieId") Long movieId, @AuthenticationPrincipal MyAppUser currentUser, Model model) {
+    public String submitScore(@RequestParam("score") Integer score, @RequestParam("movieId") Long movieId, @AuthenticationPrincipal AppUser currentAppUser, Model model) {
         Movie movie = movieRepository.findById(movieId).orElseThrow();
 
-        String as = scoreService.submitScore(movie, currentUser.getId(), score);
+        String as = scoreService.submitScore(movie, currentAppUser.getId(), score);
         return as;
     }
 

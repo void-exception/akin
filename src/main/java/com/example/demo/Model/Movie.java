@@ -15,13 +15,18 @@ public class Movie {
     private double rating;
     private String posterPath;
 
+    @Column(nullable = false)
+    private Integer ratingCount = 0;
+
     public Movie(String name, String description, String posterPath) {
         this.name = name;
         this.description = description;
         this.posterPath = posterPath;
+        this.ratingCount = 0; // Начальное значение
     }
 
     public Movie() {
+        this.ratingCount = 0; // Начальное значение
     }
 
     public Long getId() {
@@ -70,5 +75,20 @@ public class Movie {
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public void incrementRatingCount() {
+        if (this.ratingCount == null) {
+            this.ratingCount = 0;
+        }
+        this.ratingCount++;
     }
 }
