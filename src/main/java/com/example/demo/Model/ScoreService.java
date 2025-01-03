@@ -4,9 +4,8 @@ import com.example.demo.Regestration.Model.AppUser;
 import com.example.demo.Regestration.Model.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 @Service
 public class ScoreService {
@@ -27,11 +26,11 @@ public class ScoreService {
 
         if(score==5) {
             AppUser appUser = userRepository.findById(idUser)
-                    .orElseThrow(() -> new IllegalArgumentException("AppUser not found with id: " + idUser));//Убрать
+                    .orElseThrow(() -> new IllegalArgumentException("AppUser not found with id: " + idUser));
 
             Long movieGetId = movie.getId();
 
-            if (appUser.getFavoriteMovies().add(movieGetId)) { // Добавляем фильм, только если его ещё нет
+            if (appUser.getFavoriteMovies().add(movieGetId)) {
                 userRepository.save(appUser);
             }
 

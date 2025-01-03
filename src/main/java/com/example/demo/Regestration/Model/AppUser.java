@@ -4,7 +4,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id; // Исправленный импорт
+import jakarta.persistence.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -67,7 +67,6 @@ public class AppUser implements UserDetails {
         this.favoriteMovies = favoriteMovies;
     }
 
-    // Methods required by UserDetails interface
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>(); // Return empty list for simplicity
@@ -75,21 +74,21 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // Always return true for now
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // Always return true for now
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Always return true for now
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return true; // Always return true for now
+        return true;
     }
 }

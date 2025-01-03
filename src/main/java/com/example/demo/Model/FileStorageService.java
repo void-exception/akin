@@ -36,7 +36,6 @@ public class FileStorageService {
     {
         S3Client s3 = S3Client.builder()
                 .endpointOverride(URI.create(endpoint))
-//                .region(Region.US_EAST_1)
                 .region(Region.of("ru-central1"))
                 .credentialsProvider(StaticCredentialsProvider.create(
                         AwsBasicCredentials.create(accessKey, secretKey)

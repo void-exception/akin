@@ -81,7 +81,6 @@ public class MovieController {
     }
 
 
-    /*POST----------------------------------------------------------POST*/
 
     @PostMapping("/add-movie")
     public String addPostMovie(@RequestParam String name, @RequestParam String description, @RequestParam("file") MultipartFile file,  Model model)

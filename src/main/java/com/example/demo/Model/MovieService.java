@@ -52,9 +52,9 @@ public class MovieService {
         if (recomendation.isPresent()) {
             List<Long> top5Movies = recomendation.get().getRelatedMovies().entrySet()
                     .stream()
-                    .sorted(Map.Entry.<Long, Integer>comparingByValue().reversed())//Сортировка по убыванию
+                    .sorted(Map.Entry.<Long, Integer>comparingByValue().reversed())
                     .limit(5)
-                    .map(Map.Entry::getKey)//Получаем ключи
+                    .map(Map.Entry::getKey)
                     .toList();
             if (top5Movies.isEmpty()) {
                 return movieRepository.findTop5ByOrderByRatingDesc().stream().map(Movie::getId).toList();
