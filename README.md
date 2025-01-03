@@ -31,5 +31,5 @@ Akin — это приложение для поиска похожих филь
 ---
 ## Автор
 - Стародубцев Святослав — разработчик.
-- GitHub: @zxcrosh
+- GitHub: @void-exception
 - Email: svyatstar07@gmail.com
