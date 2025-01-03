@@ -8,17 +8,17 @@ cloud:
   yandex:
     s3:
       endpoint: https://storage.yandexcloud.net
-      access-key: YCAJERa_6XDIpPG0juwetE3cv
-      secret-key: YCOcdQZOcLvUR-GQhFmBHH7Ofuwyy0zQId9wVCFY
-      bucket-name: postermovie
+      access-key: 
+      secret-key: 
+      bucket-name: 
 
 spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    password: Svatzapomni1
+    password: 
     url: jdbc:postgresql://localhost:5432/akin_app
-    username: postgres
+    username: 
   jpa:
     hibernate:
       ddl-auto: update
@@ -29,8 +29,8 @@ spring:
     show-sql: true
   elasticsearch:
     uris: https://localhost:9200
-    username: elastic
-    password: 5mwkeqMKNTmBMj6hMNF0
+    username: 
+    password: 
   redis:
     host: localhost
     port: 6379
